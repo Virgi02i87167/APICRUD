@@ -15,8 +15,3 @@ afterAll(async () => {
         await mongoose.connection.db.dropDatabase();
     }
 });
-
-module.exports = {
-    testEnvironment: 'node',
-    septupFilesAfterEnv: ['./jest.setup.js']
-}
