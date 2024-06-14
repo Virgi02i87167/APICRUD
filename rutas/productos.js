@@ -27,11 +27,21 @@ rutas.get('/', async (req, res) => {
 })
 
 
-// metodo get ara el reporte
-
+// metodo get para el reporte
 rutas.get('/reporte', async (req, res) => {
+    const {categoria, minExistencia} = req.query;
+
     try {
-        const productos = await Producto.find();
+        // const productos = await Producto.find();
+
+        let filtro = {};
+        if(categoria){
+            filtro.categoria = categoria;
+        }
+        if(minExistencia){
+            filtro.existencia = { $gte:Number(minExistencia)}
+        }
+        const productos = await Producto.find(filtro);
         const htmlContent = `
             <!DOCTYPE html>
             <html lang="en">
@@ -40,6 +50,13 @@ rutas.get('/reporte', async (req, res) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Document</title>
             </head>
+            <style>
+                    body { font-family: Arial, sans-serif; }
+                    h1 { text-align: center; }
+                    table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+                    th, td { border: 1px solid #ddd; padding: 8px; }
+                    th { background-color: #f2f2f2; }
+            </style>
             <body>
                 <h1>Reporte de productos</h1>
                 <table>
