@@ -19,6 +19,6 @@ mongoose.connect(mongoURI)
 .catch(err =>console.log(err))
 
 const rutaProductos = require('./rutas/productos')
-app.use('/api/producto', rutaProductos)
+app.use('/api/producto', rutaProductos) 
 
 app.listen(port, () => console.log(`Servidor listo ${port}!`))
